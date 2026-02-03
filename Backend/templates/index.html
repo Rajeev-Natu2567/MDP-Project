@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Detector</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f4; }
+        .box { background: white; padding: 40px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        #result { font-size: 3em; font-weight: bold; color: #007bff; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Live Sound Detection</h1>
+        <div id="result">Waiting...</div>
+    </div>
+
+    <script>
+        // Poll the server every 1 second to update the display
+        setInterval(() => {
+            fetch('/status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.prediction;
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
